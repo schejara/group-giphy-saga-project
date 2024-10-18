@@ -22,7 +22,14 @@ const giphyData = (state = [], action) => {
         default:
           return state;
       }
+}
 
+const categories = (state=[], action) => {
+  if(action.type === 'CATEGORIES'){
+    return action.payload
+  }else{
+    return state
+  }
 }
 
 function* rootSaga() {
@@ -30,6 +37,16 @@ function* rootSaga() {
     yield takeLatest('SEARCH_GIPHY', searchGiphy);
     yield takeLatest('POST_GIPHY', postGiphy);
     yield takeLatest('GET_FAVORITES', getFavoritesGiphy)
+    yield takeLatest('GET_CATEGORIES', getCategories)
+  }
+
+  function* getCategories(){
+    try{
+      const categoriesResponse = yield axios.get('/api/categories')
+      yield put({type: 'CATEGORIES', payload: categoriesResponse.data})
+    }catch (error) {
+      console.error(error)
+    }
   }
 
   function* getFavoritesGiphy(){
@@ -69,7 +86,7 @@ function* rootSaga() {
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-    combineReducers({giphyData}),
+    combineReducers({giphyData, categories}),
     applyMiddleware(sagaMiddleware, logger)
   );
 export default store;

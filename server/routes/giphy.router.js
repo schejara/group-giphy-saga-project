@@ -11,7 +11,7 @@ router.get('/search', (req, res) => {
     // Construct the URL with the correct format
     axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&limit=5&q=${searchQuery}`)
         .then(response => {
-            console.log("Data from Giphy:", response.data.data);
+            // console.log("Data from Giphy:", response.data.data);
             res.send(response.data.data);
         })
         .catch(error => {
