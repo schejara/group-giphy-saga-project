@@ -32,6 +32,7 @@ const Search = () => {
 
   return (
     <>
+    <h1>Giphy Search!</h1>
      <form onSubmit={handleSearch}>
       <input
         placeholder="Name"

@@ -25,6 +25,7 @@ const Favorite = () => {
     return(
 
         <>
+        <h1>Giphy Favorites!</h1>
          <ul>
             {FavoriteGiphy.map((giphy)  => {
                  const gifUrl = giphy.gif_url;

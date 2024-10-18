@@ -6,7 +6,6 @@ import { HashRouter as Router, Route } from "react-router-dom/cjs/react-router-d
 function App() {
   return (
     <div>
-      <h1>Giphy Search!</h1>
       <Router>
         <Route path='/' exact>
       <Search/>
