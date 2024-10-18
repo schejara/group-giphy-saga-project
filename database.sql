@@ -19,7 +19,7 @@ INSERT INTO "categories"
 
   CREATE TABLE "favorites" (
   "id" SERIAL PRIMARY KEY,
-  "gif_url" VARCHAR (255) NOT NULL,
+  "gif_url" VARCHAR (255),
   "category_id" INT,
   FOREIGN KEY ("category_id") REFERENCES "categories"("id") ON DELETE CASCADE
 );

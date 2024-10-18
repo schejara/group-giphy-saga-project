@@ -4,6 +4,17 @@ import { takeLatest, put } from 'redux-saga/effects';
 import logger from 'redux-logger';
 import axios from 'axios';
 
+
+function* searchGiphy(action) {
+    try {
+      const giphyResponse = yield axios.get(`/api/giphy/search?q=${action.payload}`);
+      yield put({ type: 'SET_GIPHY', payload: giphyResponse.data });
+    } catch (err) {
+      console.error('Error Searching Giphy', err);
+    }
+  }
+
+
 const giphyData = (state = [], action) => {
     switch (action.type) {
         case 'SET_GIPHY':
@@ -16,7 +27,8 @@ const giphyData = (state = [], action) => {
 
 function* rootSaga() {
     yield takeLatest('GET_GIPHY', getGiphy);
-    
+    yield takeLatest('SEARCH_GIPHY', searchGiphy);
+    yield takeLatest('POST_GIPHY', postGiphy);
   }
 
   function* getGiphy(){
@@ -28,6 +40,15 @@ function* rootSaga() {
     }
   }
 
+  function* postGiphy(action){  
+    try {
+     yield axios.post ('/api/favorites', action.payload)
+     yield put ({type: 'POST_GIPHY_SUCCESS'})
+    } catch(err) {
+       console.error('Error Post', err)
+    }
+     
+   }
 
 
   

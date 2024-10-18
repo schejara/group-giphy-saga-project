@@ -10,7 +10,24 @@ router.get('/', (req, res) => {
 
 // add a new favorite
 router.post('/', (req, res) => {
-  res.sendStatus(201);
+  const newGiphy = req.body;
+  console.log('Posting Giphy:', newGiphy);
+  const queryText = `
+    INSERT INTO "favorites"
+      ("gif_url")
+      VALUES
+      ($1);
+  `;
+  const queryValues = [
+    newGiphy.gif_url
+  ];
+  pool.query(queryText, queryValues)
+    .then((result) => { res.sendStatus(201); })
+    .catch((err) => {
+      console.log('Error in POST /api/giphy', err);
+      res.sendStatus(500);
+    });
+  
 });
 
 // update a favorite's associated category
