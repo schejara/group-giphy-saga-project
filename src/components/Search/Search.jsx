@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Search = () => {
   const giphyProperty = useSelector(store => store.giphyData);
   const dispatch = useDispatch();
   const [newGiphy, setNewGiphy] = useState('');
+  const history = useHistory()
+
+  const handleNext = () => {
+    history.push('/favorites')
+  }
+
+
+ 
 
   useEffect(() => {
     dispatch({ type: 'GET_GIPHY' });
@@ -22,7 +31,8 @@ const Search = () => {
   };
 
   return (
-    <form onSubmit={handleSearch}>
+    <>
+     <form onSubmit={handleSearch}>
       <input
         placeholder="Name"
         value={newGiphy}
@@ -50,6 +60,11 @@ const Search = () => {
         })}
       </ul>
     </form>
+    <button
+    onClick={handleNext}
+    >To Favorites</button>
+    </>
+  
   );
 };
 

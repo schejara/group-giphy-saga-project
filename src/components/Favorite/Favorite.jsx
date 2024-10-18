@@ -1,11 +1,16 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Favorite = () => {
     const dispatch = useDispatch();
     const FavoriteGiphy = useSelector(store => store.giphyData)
+    const history = useHistory();
 
+    const handleBack = () => {
+        history.push('/')
+    }
 
     const fetchFavorites = () => {
         dispatch({
@@ -19,8 +24,8 @@ const Favorite = () => {
     
     return(
 
-
-        <ul>
+        <>
+         <ul>
             {FavoriteGiphy.map((giphy)  => {
                  const gifUrl = giphy.gif_url;
                 return (<li key={giphy.id}> 
@@ -30,6 +35,14 @@ const Favorite = () => {
                 );
             } )}
         </ul>
+
+        <button
+        onClick={handleBack}
+        >
+            Back to Search
+        </button>
+        </>
+       
     )
 
 
