@@ -8,6 +8,16 @@ const Favorite = () => {
   const categories = useSelector((store) => store.categories);
   const history = useHistory();
 
+  const handleClick = (giphyId, categoryId) => {
+    dispatch({
+        type: 'PUT_CATEGORY',
+        payload: {
+            giphyId: giphyId,
+            categoryId: categoryId
+        }
+    })
+  }
+
 
   const handleBack = () => {
     history.push("/");
@@ -38,7 +48,9 @@ const Favorite = () => {
           return (
             <li key={giphy.id}>
                 {categories.map((category) => {
-                    return <button>{category.name}</button>
+                    return <button key={category.id}
+                    onClick={() => handleClick(giphy.id, category.id)}
+                    >{category.name}</button>
                 })}
               <img
                 src={gifUrl}

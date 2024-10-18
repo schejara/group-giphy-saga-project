@@ -41,7 +41,22 @@ router.post('/', (req, res) => {
 // update a favorite's associated category
 router.put('/:id', (req, res) => {
   // req.body should contain a category_id to add to this favorite image
-  res.sendStatus(200);
+  const giphyId = req.params.id 
+  const categoryId = req.body.categoryId
+  const queryParams = [categoryId, giphyId]
+
+  const sqlText = `UPDATE "favorites"
+SET "category_id" = $1
+FROM "categories"
+WHERE "favorites"."id" = $2;`
+
+pool.query(sqlText, queryParams).then((result) => {
+  res.sendStatus(201);
+}).catch((err) => {
+  console.error('Error Server PUT', err)
+})
+
+
 });
 
 // delete a favorite

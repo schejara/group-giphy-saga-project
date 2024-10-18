@@ -32,12 +32,28 @@ const categories = (state=[], action) => {
   }
 }
 
+function* putCategory(action){
+
+  let data = {
+    categoryId: action.payload.categoryId
+  }
+
+  try {
+    yield axios.put(`/api/favorites/${action.payload.giphyId}`, data)
+
+  } catch (error) {
+    console.error('PUT Category Error', error)
+  }
+
+}
+
 function* rootSaga() {
     yield takeLatest('GET_GIPHY', getGiphy);
     yield takeLatest('SEARCH_GIPHY', searchGiphy);
     yield takeLatest('POST_GIPHY', postGiphy);
     yield takeLatest('GET_FAVORITES', getFavoritesGiphy)
     yield takeLatest('GET_CATEGORIES', getCategories)
+    yield takeLatest('PUT_CATEGORY', putCategory)
   }
 
   function* getCategories(){
