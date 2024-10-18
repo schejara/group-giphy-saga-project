@@ -29,7 +29,20 @@ function* rootSaga() {
     yield takeLatest('GET_GIPHY', getGiphy);
     yield takeLatest('SEARCH_GIPHY', searchGiphy);
     yield takeLatest('POST_GIPHY', postGiphy);
+    yield takeLatest('GET_FAVORITES', getFavoritesGiphy)
   }
+
+  function* getFavoritesGiphy(){
+
+    try {
+      const getFavoritesGiphyResponse = yield axios.get('/api/favorites')
+      yield put({type: 'SET_GIPHY', payload: getFavoritesGiphyResponse.data})
+    } catch (error) {
+      console.error('Error Getting Favorite', error)
+    }
+
+  }
+
 
   function* getGiphy(){
     try{
