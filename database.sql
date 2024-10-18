@@ -16,6 +16,14 @@ INSERT INTO "categories"
   ('felicitous'),
   ('whimsical');
 
+
+  CREATE TABLE "favorites" (
+  "id" SERIAL PRIMARY KEY,
+  "gif_url" VARCHAR (255) NOT NULL,
+  "category_id" INT,
+  FOREIGN KEY ("category_id") REFERENCES "categories"("id") ON DELETE CASCADE
+);
+
 -- Favorites table:
 
 -- You'll need a "favorites" table for storing each instance of
